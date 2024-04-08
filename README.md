@@ -5,7 +5,13 @@ This script is used for preprocessing APK files using ViT4Mal protocol. It takes
 ## Usage
 
 ```bash
-python preprocess.py input_folder output_folder [-r]
+python preprocess.py <input_folder> <output_folder> [-r]
 ```
 
 `-r` flag specify recursive search on depth 1.
+
+Example usage:
+
+```bash
+python preprocess.py data/apks/D0/goodware data/images/D0/goodware
+```
