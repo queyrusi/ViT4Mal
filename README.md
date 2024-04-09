@@ -8,7 +8,7 @@ This script is used for preprocessing APK files using ViT4Mal protocol. It takes
 python preprocess.py <input_folder> <output_folder> [-r]
 ```
 
-`-r` flag specify recursive search on depth 1.
+`-r` flag specify APK search on depth 1.
 
 Example usage:
 

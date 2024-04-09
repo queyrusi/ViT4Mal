@@ -55,26 +55,26 @@ def convert_apk_to_image(apk_path, output_folder):
     resized_image.save(f'{output_folder}/{filename}.png')
 
 
-def count_outputs(output_folder):
-    while True:
-        # Count the number of files in the output folder (recursive)
-        num_outputs = sum(len(files) for _, _, files in os.walk(output_folder))
-        # Calculate the estimated time remaining based on the number of elements
-        estimated_time = num_outputs * 10  # Assuming each output takes 10 seconds
-        print(f"Number of outputs: {num_outputs}, Estimated time remaining: {estimated_time} seconds")
-        time.sleep(10)  # Wait for 10 seconds
-
 def process_apks(input_folder, output_folder, recursive=False):
-    # If recursive is True, search recursively in the input folder for APK files
+    # If recursive is True, search depth 1 in the input folder for APK files
     if recursive:
         # Get the list of apk files in the input folder
         apk_files = glob.glob(f'{input_folder}/*/*.apk')
     else:
         # Get the list of apk files in the input folder
         apk_files = glob.glob(f'{input_folder}/*.apk')
+
+    # Open a log file with the time and date in the title
+    log_filename = os.path.join("logs", time.strftime("%Y-%m-%d_%H-%M-%S.log"))
+    log_file = open(log_filename, 'w')
+
     # Process each apk file
     for apk_file in tqdm(apk_files):
+        start_time = time.time()
         convert_apk_to_image(apk_file, output_folder)
+        end_time = time.time()
+        elapsed_time = (end_time - start_time) * 1000
+        log_file.write(f"APK file: {apk_file}, Time taken: {elapsed_time} ms\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='APK to Image Converter')
